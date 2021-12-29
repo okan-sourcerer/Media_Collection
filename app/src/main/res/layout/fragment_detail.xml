@@ -84,6 +84,17 @@
             android:autoLink="web"
             android:lineSpacingExtra="6dp"/>
 
+        <Button
+            android:id="@+id/detailEditButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailLinks"
+            android:layout_marginTop="20dp"
+            android:elevation="6dp"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

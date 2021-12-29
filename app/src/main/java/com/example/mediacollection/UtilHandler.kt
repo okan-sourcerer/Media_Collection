@@ -5,10 +5,9 @@ import com.example.mediacollection.model.*
 object UtilHandler{
 
     // List of the items in the
-    val contents: List<Content> = listOf(
+    val contents: MutableList<Content> = mutableListOf(
             Content(R.drawable.black_hole, "Interstellar", "Christopher Nolan", MOVIE,
-                    listOf("https://www.imdb.com/title/tt0816692/",
-                            "https://en.wikipedia.org/wiki/Interstellar_(film)",)),
+                    "https://www.imdb.com/title/tt0816692/ https://en.wikipedia.org/wiki/Interstellar_(film)"),
             Content(R.drawable.black_hole, "Stellar", "Oan Nolan", MOVIE),
             Content(R.drawable.black_hole, "Some basic romance", "A producer", MOVIE),
             Content(R.drawable.black_hole, "Interstellar", "Christopher Nolan", VIDEO),
@@ -26,14 +25,14 @@ object UtilHandler{
             Content(null, "Interstellar", "Christopher Nolan", MOVIE),
             Content(R.drawable.black_hole, "Interstellar", "Christopher Nolan", BOOK),
             Content(R.drawable.black_hole, "Batman Begins", "Christopher Nolan", MOVIE),
-            Content(R.drawable.black_hole, "Andromeda", "Lxst Cxntury", MUSIC, listOf("https://www.youtube.com/watch?v=smbiKaOAN3Q", "https://www.youtube.com/watch?v=C6JSSENFwzI")),
+            Content(R.drawable.black_hole, "Andromeda", "Lxst Cxntury", MUSIC, "https://www.youtube.com/watch?v=smbiKaOAN3Q https://www.youtube.com/watch?v=C6JSSENFwzI"),
             Content(null, "Interstellar", "Christopher Nolan", MOVIE),
             Content(R.drawable.black_hole, "Batman Begins", "Christopher Nolan", MOVIE)
     )
 
     //TODO: Add viewpager to content browser and make it work with tablayout ++
     // add support for links. ++
-    // Make an edit and create activity.
+    // Make an edit and create activity. +
     // Make user to be able to select image from gallery
     // Store user data.
     // OPTIONAL: Add settings menu to modify colors of the app and store them as well. 
@@ -54,5 +53,10 @@ object UtilHandler{
      */
     fun getContent(filter: String): List<Content>{
         return if(filter == ALL) contents else contents.filter { it.type == filter }
+    }
+
+    // add new content to the list. This will be changed to handle new images as well
+    fun addContent(content: Content){
+        contents.add(content)
     }
 }

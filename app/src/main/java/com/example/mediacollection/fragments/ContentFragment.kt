@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mediacollection.adapters.ContentAdapter
 import com.example.mediacollection.R
+import com.example.mediacollection.UtilHandler
+import com.example.mediacollection.model.CONTENT_CREATE
 import com.example.mediacollection.model.Content
+import com.example.mediacollection.model.SAVE_CONTENT
 
 class ContentFragment(val contents: List<Content>, private val type: String): Fragment() {
 
@@ -27,6 +30,16 @@ class ContentFragment(val contents: List<Content>, private val type: String): Fr
         handleUI(view)
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // when returning from ModifyActivity.kt check if there is an extra. If there is, notify
+        if (activity?.intent?.getIntExtra(CONTENT_CREATE, 0) == SAVE_CONTENT){
+            adapter.contents = UtilHandler.getContent(type)
+            adapter.notifyDataSetChanged()
+            activity?.intent!!.removeExtra(CONTENT_CREATE)
+        }
     }
 
     private fun handleUI(view: View){

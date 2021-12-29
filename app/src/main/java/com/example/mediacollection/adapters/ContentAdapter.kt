@@ -6,16 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mediacollection.R
-import com.example.mediacollection.UtilHandler
 import com.example.mediacollection.activities.ContentDetailActivity
 import com.example.mediacollection.model.*
 
 class ContentAdapter(
-    private val contents: List<Content>, private val type:String
+    var contents: List<Content>, private val type:String
     ): RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

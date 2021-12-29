@@ -9,7 +9,9 @@ val VIDEO = "VIDEO"
 
 // constant for passing intents
 val CATEGORY = "CATEGORY"
-val CATEGORY_INTENT = 15
+
+val CONTENT_CREATE = "CREATE"
+val SAVE_CONTENT = 15
 
 // instead of using other methods, we will use these 2 constants to pass information to ContentDetailActivity
 // with type, we will filter the list and with position, we will get the wanted content.

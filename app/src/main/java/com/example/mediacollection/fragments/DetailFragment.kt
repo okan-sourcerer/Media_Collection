@@ -5,6 +5,7 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ class DetailFragment(private val type: String, private val position: Int): Fragm
     private lateinit var typeText: TextView
     private lateinit var producerText: TextView
     private lateinit var linkText: TextView
+    private lateinit var editButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +42,7 @@ class DetailFragment(private val type: String, private val position: Int): Fragm
         typeText = view.findViewById(R.id.detailTextType)
         producerText = view.findViewById(R.id.detailProducerText)
         linkText = view.findViewById(R.id.detailLinks)
+        editButton = view.findViewById(R.id.detailEditButton)
 
         // get content
         val content: Content = UtilHandler.getContent(type)[position]
@@ -47,14 +50,12 @@ class DetailFragment(private val type: String, private val position: Int): Fragm
         nameText.text = content.name
         typeText.text = content.type
         producerText.text = content.producer
-        linkText.text =  ""
-        for (aLink in content.links){
+        linkText.text =  content.links
+        //linkText.movementMethod = LinkMovementMethod.getInstance()
 
-            linkText.append(aLink)
-            linkText.append("\n")
+        editButton.setOnClickListener{
 
         }
-        //linkText.movementMethod = LinkMovementMethod.getInstance()
 
     }
 }

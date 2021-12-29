@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mediacollection.R
 import com.example.mediacollection.UtilHandler
@@ -13,6 +14,8 @@ import com.example.mediacollection.adapters.ContentsFragmentAdapter
 import com.example.mediacollection.fragments.ContentFragment
 import com.example.mediacollection.model.ALL
 import com.example.mediacollection.model.CATEGORY
+import com.example.mediacollection.model.CONTENT_CREATE
+import com.example.mediacollection.model.SAVE_CONTENT
 import com.google.android.material.tabs.TabLayout
 
 class ContentActivity : AppCompatActivity() {
@@ -45,16 +48,6 @@ class ContentActivity : AppCompatActivity() {
             val position = intent.getIntExtra(CATEGORY,0)
             pager.setCurrentItem(position, false)
             tab.selectTab(tab.getTabAt(position))
-
-            /*
-            val category: String = tab.getTabAt(position)!!.contentDescription.toString()
-            // create fragment
-            fm.beginTransaction().add(R.id.fragmentContainer,
-                    ContentFragment(UtilHandler.getContent(category))).commit()
-            // set tab position
-            tab.selectTab(tab.getTabAt(position))
-
-             */
         }
         else{ // not likely but just in case
             fm.beginTransaction().add(R.id.fragmentContainer,
@@ -73,6 +66,7 @@ class ContentActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
+        // when page changes, change current tab as well
         pager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 tab.selectTab(tab.getTabAt(position))
@@ -80,16 +74,18 @@ class ContentActivity : AppCompatActivity() {
         })
     }
 
+    // create menu with add and settings option
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.create_menu, menu)
         return true
     }
 
+    // handle menu items behaviours
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.menu_add -> {
                 val intent = Intent(this, ModifyActivity::class.java)
-                startActivity(intent)
+                launchActivity.launch(intent)
             }
             R.id.menu_setting -> Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
 
@@ -97,5 +93,14 @@ class ContentActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+    // launches modify activity to create a new content. Waits for a result to update adapters.
+    private val launchActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+
+        if (result.resultCode == SAVE_CONTENT){
+            pagerAdapter.notifyDataSetChanged()
+            intent.putExtra(CONTENT_CREATE, SAVE_CONTENT) // when we are here, we notify fragment with intent to reload the dataset
+        }
     }
 }

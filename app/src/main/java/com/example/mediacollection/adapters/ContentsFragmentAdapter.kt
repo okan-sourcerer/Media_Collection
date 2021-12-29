@@ -25,7 +25,6 @@ class ContentsFragmentAdapter(private val fragmentManager: FragmentManager, priv
             4 -> VIDEO
             else -> ALL
         }
-        println("$position: ${type}")
         return ContentFragment(UtilHandler.getContent(type), type)
     }
 }
