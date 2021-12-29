@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MediaCollection">
+        <activity android:name=".activities.ModifyActivity"></activity>
         <activity android:name=".activities.ContentDetailActivity" />
         <activity android:name=".activities.ContentActivity" />
         <activity android:name=".activities.CategoryActivity">

@@ -6,7 +6,9 @@ object UtilHandler{
 
     // List of the items in the
     val contents: List<Content> = listOf(
-            Content(R.drawable.black_hole, "Interstellar", "Christopher Nolan", MOVIE, listOf("https://www.imdb.com/title/tt0816692/", "https://en.wikipedia.org/wiki/Interstellar_(film)")),
+            Content(R.drawable.black_hole, "Interstellar", "Christopher Nolan", MOVIE,
+                    listOf("https://www.imdb.com/title/tt0816692/",
+                            "https://en.wikipedia.org/wiki/Interstellar_(film)",)),
             Content(R.drawable.black_hole, "Stellar", "Oan Nolan", MOVIE),
             Content(R.drawable.black_hole, "Some basic romance", "A producer", MOVIE),
             Content(R.drawable.black_hole, "Interstellar", "Christopher Nolan", VIDEO),

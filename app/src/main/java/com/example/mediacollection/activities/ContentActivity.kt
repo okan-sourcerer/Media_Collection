@@ -1,7 +1,11 @@
 package com.example.mediacollection.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mediacollection.R
 import com.example.mediacollection.UtilHandler
@@ -74,5 +78,24 @@ class ContentActivity : AppCompatActivity() {
                 tab.selectTab(tab.getTabAt(position))
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.create_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_add -> {
+                val intent = Intent(this, ModifyActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_setting -> Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+
+            else -> super.onOptionsItemSelected(item)
+        }
+
+        return true
     }
 }

@@ -47,13 +47,14 @@ class DetailFragment(private val type: String, private val position: Int): Fragm
         nameText.text = content.name
         typeText.text = content.type
         producerText.text = content.producer
-        var link = ""
+        linkText.text =  ""
         for (aLink in content.links){
-            link += "\n"
-            link += aLink
-        }
-        linkText.movementMethod = LinkMovementMethod.getInstance()
 
-        linkText.text = link
+            linkText.append(aLink)
+            linkText.append("\n")
+
+        }
+        //linkText.movementMethod = LinkMovementMethod.getInstance()
+
     }
 }

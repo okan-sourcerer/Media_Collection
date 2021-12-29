@@ -1,6 +1,10 @@
 package com.example.mediacollection.activities
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,5 +26,22 @@ class CategoryActivity: AppCompatActivity() {
         adapter = CategoryAdapter(UtilHandler.categories)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.settings_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.setting_menu -> {
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+
+        return true
     }
 }

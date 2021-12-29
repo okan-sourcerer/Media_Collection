@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mediacollection.R
 import com.example.mediacollection.activities.ContentActivity
 import com.example.mediacollection.model.CATEGORY
-import com.example.mediacollection.model.CATEGORY_INTENT
 import com.example.mediacollection.model.Category
 
 class CategoryAdapter(private val categories: List<Category>)
