@@ -6,7 +6,7 @@ object UtilHandler{
 
     // List of the items in the
     val contents: List<Content> = listOf(
-            Content(R.drawable.black_hole, "Interstellar", "Christopher Nolan", MOVIE),
+            Content(R.drawable.black_hole, "Interstellar", "Christopher Nolan", MOVIE, listOf("https://www.imdb.com/title/tt0816692/", "https://en.wikipedia.org/wiki/Interstellar_(film)")),
             Content(R.drawable.black_hole, "Stellar", "Oan Nolan", MOVIE),
             Content(R.drawable.black_hole, "Some basic romance", "A producer", MOVIE),
             Content(R.drawable.black_hole, "Interstellar", "Christopher Nolan", VIDEO),
@@ -24,14 +24,18 @@ object UtilHandler{
             Content(null, "Interstellar", "Christopher Nolan", MOVIE),
             Content(R.drawable.black_hole, "Interstellar", "Christopher Nolan", BOOK),
             Content(R.drawable.black_hole, "Batman Begins", "Christopher Nolan", MOVIE),
-            Content(R.drawable.black_hole, "Andromeda", "Lxst Cxntury", MUSIC),
+            Content(R.drawable.black_hole, "Andromeda", "Lxst Cxntury", MUSIC, listOf("https://www.youtube.com/watch?v=smbiKaOAN3Q", "https://www.youtube.com/watch?v=C6JSSENFwzI")),
             Content(null, "Interstellar", "Christopher Nolan", MOVIE),
-            Content(R.drawable.black_hole, "Batman BeginsThis method requires a filter word. Filter needs to be one of the words declared in Constants.kt\n" +
-                    "     * Returns a list of contents which are of required typThis method requires a filter word. Filter needs to be one of the words declared in Constants.kt\n" +
-                    "     * Returns a list of contents which are of required typThis method requires a filter word. Filter needs to be one of the words declared in Constants.kt\n" +
-                    "     * Returns a list of contents which are of required typThis method requires a filter word. Filter needs to be one of the words declared in Constants.kt\n" +
-                    "     * Returns a list of contents which are of required typ", "Christopher Nolan", MOVIE)
+            Content(R.drawable.black_hole, "Batman Begins", "Christopher Nolan", MOVIE)
     )
+
+    //TODO: Add viewpager to content browser and make it work with tablayout ++
+    // add support for links. ++
+    // Make an edit and create activity.
+    // Make user to be able to select image from gallery
+    // Store user data.
+    // OPTIONAL: Add settings menu to modify colors of the app and store them as well. 
+
 
     // Name of the categories
         val categories: List<Category> = listOf(

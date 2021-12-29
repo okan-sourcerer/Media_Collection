@@ -11,7 +11,7 @@ import com.example.mediacollection.adapters.ContentAdapter
 import com.example.mediacollection.R
 import com.example.mediacollection.model.Content
 
-class ContentFragment(val contents: List<Content>): Fragment() {
+class ContentFragment(val contents: List<Content>, private val type: String): Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ContentAdapter
@@ -33,7 +33,7 @@ class ContentFragment(val contents: List<Content>): Fragment() {
 
         recyclerView = view.findViewById(R.id.categoryRecycler)
 
-        adapter = ContentAdapter(contents)
+        adapter = ContentAdapter(contents, type)
         layoutManager = LinearLayoutManager(view.context)
 
         recyclerView.adapter = adapter

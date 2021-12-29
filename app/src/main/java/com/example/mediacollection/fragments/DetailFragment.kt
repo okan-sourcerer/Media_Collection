@@ -1,6 +1,7 @@
 package com.example.mediacollection.fragments
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,6 +47,13 @@ class DetailFragment(private val type: String, private val position: Int): Fragm
         nameText.text = content.name
         typeText.text = content.type
         producerText.text = content.producer
-        linkText.text = content.links?.forEach { it + "\n" }.toString()
+        var link = ""
+        for (aLink in content.links){
+            link += "\n"
+            link += aLink
+        }
+        linkText.movementMethod = LinkMovementMethod.getInstance()
+
+        linkText.text = link
     }
 }

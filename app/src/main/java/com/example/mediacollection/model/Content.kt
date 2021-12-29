@@ -5,5 +5,5 @@ data class Content(
     var name: String, // name
     var producer: String, // can be important person for the content
     var type: String, // type (book, movie, music, video)
-    var links: List<String>? = null
+    var links: List<String> = listOf()
 )

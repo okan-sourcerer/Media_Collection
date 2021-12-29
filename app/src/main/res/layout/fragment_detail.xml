@@ -80,7 +80,9 @@
             android:linksClickable="true"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:paddingBottom="30dp"/>
+            android:paddingBottom="30dp"
+            android:autoLink="web"
+            android:lineSpacingExtra="6dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

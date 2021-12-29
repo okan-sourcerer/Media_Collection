@@ -15,7 +15,7 @@ import com.example.mediacollection.activities.ContentDetailActivity
 import com.example.mediacollection.model.*
 
 class ContentAdapter(
-    private val contents: List<Content>
+    private val contents: List<Content>, private val type:String
     ): RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -57,7 +57,7 @@ class ContentAdapter(
                 val intent = Intent(itemView.context, ContentDetailActivity::class.java)
                 // instead of passing individual values, we will use our Util class
 
-                intent.putExtra(TYPE, content.type)
+                intent.putExtra(TYPE, type)
                 intent.putExtra(POSITION, position)
                 itemView.context.startActivity(intent)
             }
