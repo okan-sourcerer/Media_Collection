@@ -1,7 +1,6 @@
 package com.example.mediacollection.fragments
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.mediacollection.R
-import com.example.mediacollection.UtilHandler
+import com.example.mediacollection.utils.UtilHandler
 import com.example.mediacollection.model.Content
 
 class DetailFragment(private val type: String, private val position: Int): Fragment() {
@@ -45,8 +44,8 @@ class DetailFragment(private val type: String, private val position: Int): Fragm
         editButton = view.findViewById(R.id.detailEditButton)
 
         // get content
-        val content: Content = UtilHandler.getContent(type)[position]
-        content.image?.let { imageView.setImageResource(it)}
+        val content: Content = UtilHandler.getInstance(requireContext()).getContent(type)[position]
+        content.image?.let { imageView.setImageURI(it)} // instantiate image from uri
         nameText.text = content.name
         typeText.text = content.type
         producerText.text = content.producer
@@ -54,8 +53,7 @@ class DetailFragment(private val type: String, private val position: Int): Fragm
         //linkText.movementMethod = LinkMovementMethod.getInstance()
 
         editButton.setOnClickListener{
-
+            //TODO:: DO this
         }
-
     }
 }

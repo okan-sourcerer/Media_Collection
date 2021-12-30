@@ -2,14 +2,13 @@ package com.example.mediacollection.activities
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mediacollection.R
-import com.example.mediacollection.UtilHandler
+import com.example.mediacollection.utils.UtilHandler
 import com.example.mediacollection.adapters.CategoryAdapter
 
 class CategoryActivity: AppCompatActivity() {
@@ -23,7 +22,7 @@ class CategoryActivity: AppCompatActivity() {
         setContentView(R.layout.activity_category)
 
         recycler = findViewById(R.id.categoryRecycler)
-        adapter = CategoryAdapter(UtilHandler.categories)
+        adapter = CategoryAdapter(UtilHandler.getInstance(this).categories)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this)
     }

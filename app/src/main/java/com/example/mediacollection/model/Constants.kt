@@ -1,20 +1,34 @@
 package com.example.mediacollection.model
 
 // constants for different categories
-val ALL = "ALL"
-val BOOK = "BOOK"
-val MOVIE = "MOVIE"
-val MUSIC = "MUSIC"
-val VIDEO = "VIDEO"
+const val ALL = "ALL"
+const val BOOK = "BOOK"
+const val MOVIE = "MOVIE"
+const val MUSIC = "MUSIC"
+const val VIDEO = "VIDEO"
 
 // constant for passing intents
-val CATEGORY = "CATEGORY"
+const val CATEGORY = "CATEGORY"
 
-val CONTENT_CREATE = "CREATE"
-val SAVE_CONTENT = 15
+// constants for creating new content in ModifyActivity.kt
+const val CONTENT_CREATE = "CREATE"
+const val SAVE_CONTENT = 15
 
 // instead of using other methods, we will use these 2 constants to pass information to ContentDetailActivity
 // with type, we will filter the list and with position, we will get the wanted content.
 // We can not delete items on the main menu. That is why we are certain of their position
-val TYPE = "TYPE"
-val POSITION = "POSITION"
+const val TYPE = "TYPE"
+const val POSITION = "POSITION"
+
+const val IMAGE_REQUEST = "REQUEST_IMAGE"
+const val IMAGE_REQUEST_VALUE = 135
+
+const val DATABASE_NAME = "content.db"
+const val VERSION = 1
+
+const val TABLE_NAME = "Content"
+const val TABLE_CONTENT_NAME = "name"
+const val TABLE_PRODUCER = "producer"
+const val TABLE_TYPE = "type"
+const val TABLE_LINKS = "links"
+const val TABLE_IMAGE = "image"

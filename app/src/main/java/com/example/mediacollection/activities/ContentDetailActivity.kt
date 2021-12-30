@@ -23,7 +23,7 @@ class ContentDetailActivity : AppCompatActivity() {
         val type = intent.getStringExtra(TYPE)
         val position = intent.getIntExtra(POSITION, 0)
         pager = findViewById(R.id.pager)
-        pagerAdapter = DetailFragmentAdapter(supportFragmentManager, lifecycle, type!!)
+        pagerAdapter = DetailFragmentAdapter(supportFragmentManager, lifecycle, type!!, this)
         pager.adapter = pagerAdapter
         pager.setCurrentItem(position, false)
         //val fm = supportFragmentManager

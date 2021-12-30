@@ -1,20 +1,21 @@
 package com.example.mediacollection.adapters
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.mediacollection.UtilHandler
+import com.example.mediacollection.utils.UtilHandler
 import com.example.mediacollection.fragments.ContentFragment
 import com.example.mediacollection.model.*
 
-class ContentsFragmentAdapter(private val fragmentManager: FragmentManager, private val lifecycle: Lifecycle):
+class ContentsFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, private val context: Context):
         FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private lateinit var type: String
 
     override fun getItemCount(): Int{
-        return UtilHandler.categories.size
+        return UtilHandler.getInstance(context).categories.size
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -25,6 +26,6 @@ class ContentsFragmentAdapter(private val fragmentManager: FragmentManager, priv
             4 -> VIDEO
             else -> ALL
         }
-        return ContentFragment(UtilHandler.getContent(type), type)
+        return ContentFragment(UtilHandler.getInstance(context).getContent(type), type)
     }
 }

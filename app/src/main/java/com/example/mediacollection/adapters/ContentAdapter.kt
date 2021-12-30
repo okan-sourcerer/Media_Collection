@@ -8,9 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.util.Util
 import com.example.mediacollection.R
 import com.example.mediacollection.activities.ContentDetailActivity
 import com.example.mediacollection.model.*
+import com.example.mediacollection.utils.UtilHandler
 
 class ContentAdapter(
     var contents: List<Content>, private val type:String
@@ -39,13 +41,10 @@ class ContentAdapter(
 
             val content = contents[position]
             // This will prevent previous assets to be used again
-            if (content.image == null){ // we don't have an image for the content
-                Glide.clear(image)
-            } else{ // We have an image. Load with glide
-                Glide.with(itemView.context)
-                    .load(content.image)
-                    .error(R.drawable.ic_error)
-                    .into(image)
+
+            if (content.image != null){
+                val bitmap = UtilHandler.getInstance(itemView.context).loadImage(content.image!!.path!!)
+                image.setImageBitmap(bitmap)
             }
 
             name.text = content.name

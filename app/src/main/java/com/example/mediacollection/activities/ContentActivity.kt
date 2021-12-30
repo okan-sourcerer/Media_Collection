@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mediacollection.R
-import com.example.mediacollection.UtilHandler
+import com.example.mediacollection.utils.UtilHandler
 import com.example.mediacollection.adapters.ContentsFragmentAdapter
 import com.example.mediacollection.fragments.ContentFragment
 import com.example.mediacollection.model.ALL
@@ -34,12 +34,12 @@ class ContentActivity : AppCompatActivity() {
         tab.setBackgroundColor(resources.getColor(R.color.red, null))
 
         // add all the categories in the category list
-        for (ca in UtilHandler.categories){
+        for (ca in UtilHandler.getInstance(this).categories){
             tab.addTab(tab.newTab().setIcon(ca.typeImage).setContentDescription(ca.name))
         }
 
         pager = findViewById(R.id.contentPager)
-        pagerAdapter = ContentsFragmentAdapter(fm, lifecycle)
+        pagerAdapter = ContentsFragmentAdapter(fm, lifecycle, this)
         pager.adapter = pagerAdapter
 
 
@@ -51,7 +51,7 @@ class ContentActivity : AppCompatActivity() {
         }
         else{ // not likely but just in case
             fm.beginTransaction().add(R.id.fragmentContainer,
-                    ContentFragment(UtilHandler.getContent(ALL), ALL)).commit()
+                    ContentFragment(UtilHandler.getInstance(this).getContent(ALL), ALL)).commit()
         }
 
         // handle tab select actions
