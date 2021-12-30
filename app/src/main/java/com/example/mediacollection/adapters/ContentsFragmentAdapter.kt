@@ -1,6 +1,7 @@
 package com.example.mediacollection.adapters
 
 import android.content.Context
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -26,6 +27,10 @@ class ContentsFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifec
             4 -> VIDEO
             else -> ALL
         }
-        return ContentFragment(UtilHandler.getInstance(context).getContent(type), type)
+        val bundle = Bundle(2)
+        bundle.putString(TYPE, type)
+        val fragment = ContentFragment()
+        fragment.arguments = bundle
+        return fragment
     }
 }

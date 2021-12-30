@@ -49,10 +49,12 @@ class ContentActivity : AppCompatActivity() {
             pager.setCurrentItem(position, false)
             tab.selectTab(tab.getTabAt(position))
         }
+        /*
         else{ // not likely but just in case
             fm.beginTransaction().add(R.id.fragmentContainer,
-                    ContentFragment(UtilHandler.getInstance(this).getContent(ALL), ALL)).commit()
+                    ContentFragment()).commit()
         }
+        */
 
         // handle tab select actions
         tab.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {

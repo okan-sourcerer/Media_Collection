@@ -9,16 +9,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mediacollection.adapters.ContentAdapter
 import com.example.mediacollection.R
+import com.example.mediacollection.model.*
 import com.example.mediacollection.utils.UtilHandler
-import com.example.mediacollection.model.CONTENT_CREATE
-import com.example.mediacollection.model.Content
-import com.example.mediacollection.model.SAVE_CONTENT
 
-class ContentFragment(val contents: List<Content>, private val type: String): Fragment() {
+class ContentFragment: Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ContentAdapter
     private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var contents: List<Content>
+    private lateinit var type: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        type = requireArguments().getString(TYPE, ALL)!!
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +33,7 @@ class ContentFragment(val contents: List<Content>, private val type: String): Fr
     ): View? {
         val view = inflater.inflate(R.layout.fragment_content, container, false)
 
-        handleUI(view)
+        handleUI(view, type)
 
         return view
     }
@@ -42,10 +48,11 @@ class ContentFragment(val contents: List<Content>, private val type: String): Fr
         }
     }
 
-    private fun handleUI(view: View){
+    private fun handleUI(view: View, type:String){
 
         recyclerView = view.findViewById(R.id.categoryRecycler)
 
+        contents = UtilHandler.getInstance(view.context).getContent(type)
         adapter = ContentAdapter(contents, type)
         layoutManager = LinearLayoutManager(view.context)
 

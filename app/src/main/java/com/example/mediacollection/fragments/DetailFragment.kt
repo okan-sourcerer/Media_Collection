@@ -9,10 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.mediacollection.R
+import com.example.mediacollection.model.ALL
 import com.example.mediacollection.utils.UtilHandler
 import com.example.mediacollection.model.Content
+import com.example.mediacollection.model.POSITION
+import com.example.mediacollection.model.TYPE
 
-class DetailFragment(private val type: String, private val position: Int): Fragment() {
+class DetailFragment: Fragment() {
 
     private lateinit var imageView: ImageView
     private lateinit var nameText: TextView
@@ -21,6 +24,17 @@ class DetailFragment(private val type: String, private val position: Int): Fragm
     private lateinit var linkText: TextView
     private lateinit var editButton: Button
 
+    private lateinit var type: String
+    private var position: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // get information that is passed to ContentDetailActivity from fragment and instantiate views
+
+        type = requireArguments().getString(TYPE)!!
+        position = requireArguments().getInt(POSITION)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,7 +42,6 @@ class DetailFragment(private val type: String, private val position: Int): Fragm
     ): View? {
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
 
-        // get information that is passed to ContentDetailActivity from fragment and instantiate views
 
         instantiateUI(view)
 
