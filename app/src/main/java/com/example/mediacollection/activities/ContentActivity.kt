@@ -17,6 +17,7 @@ import com.example.mediacollection.model.CATEGORY
 import com.example.mediacollection.model.CONTENT_CREATE
 import com.example.mediacollection.model.SAVE_CONTENT
 import com.google.android.material.tabs.TabLayout
+import java.util.*
 
 class ContentActivity : AppCompatActivity() {
 
@@ -62,7 +63,7 @@ class ContentActivity : AppCompatActivity() {
                 // get content list by filtering based on tabs
                 // replace current fragment to new tab fragment
                 pager.setCurrentItem(tab!!.position, true)
-                //fm.beginTransaction().replace(R.id.fragmentContainer, ContentFragment(UtilHandler.getContent(tab!!.contentDescription.toString()))).commit()
+
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
@@ -72,6 +73,8 @@ class ContentActivity : AppCompatActivity() {
         pager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 tab.selectTab(tab.getTabAt(position))
+                supportActionBar?.title = UtilHandler.getInstance(this@ContentActivity)
+                    .categories[position].name.toLowerCase(Locale.US).capitalize(Locale.US)
             }
         })
     }
@@ -104,5 +107,10 @@ class ContentActivity : AppCompatActivity() {
             pagerAdapter.notifyDataSetChanged()
             intent.putExtra(CONTENT_CREATE, SAVE_CONTENT) // when we are here, we notify fragment with intent to reload the dataset
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        pagerAdapter.notifyDataSetChanged()
     }
 }

@@ -27,7 +27,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:padding="5dp"
+            android:contentDescription="@string/desc_content_image"/>
 
         <TextView
             android:id="@+id/textItemName"
@@ -36,7 +38,6 @@
             android:maxLines="1"
             android:paddingTop="8dp"
             android:paddingBottom="5dp"
-            android:text="Sample Name"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginStart="10dp"
@@ -49,7 +50,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:text="Sample Director name"
             android:paddingBottom="8dp"
             app:layout_constraintLeft_toLeftOf="@+id/imageContentType"
             app:layout_constraintStart_toStartOf="@+id/textItemName"

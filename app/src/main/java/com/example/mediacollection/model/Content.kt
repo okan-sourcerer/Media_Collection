@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 
 data class Content(
+    var databaseId: String?,
     var image: Uri?, // image id of the content
     var name: String, // name
     var producer: String, // can be important person for the content

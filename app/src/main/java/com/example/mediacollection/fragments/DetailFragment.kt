@@ -1,5 +1,6 @@
 package com.example.mediacollection.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +8,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.mediacollection.R
-import com.example.mediacollection.model.ALL
+import com.example.mediacollection.activities.ModifyActivity
+import com.example.mediacollection.model.*
 import com.example.mediacollection.utils.UtilHandler
-import com.example.mediacollection.model.Content
-import com.example.mediacollection.model.POSITION
-import com.example.mediacollection.model.TYPE
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DetailFragment: Fragment() {
 
@@ -56,17 +59,41 @@ class DetailFragment: Fragment() {
         linkText = view.findViewById(R.id.detailLinks)
         editButton = view.findViewById(R.id.detailEditButton)
 
+        initiateUI()
+        //linkText.movementMethod = LinkMovementMethod.getInstance()
+
+        editButton.setOnClickListener{
+            val intent = Intent(context, ModifyActivity::class.java)
+            intent.putExtra(TYPE, type)
+            intent.putExtra(POSITION, position)
+
+            launchActivity.launch(intent)
+        }
+    }
+
+    // launches modify activity to modify the current content. Waits for a result to update current view.
+    private val launchActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+
+        if (result.resultCode == UPDATE_CONTENT){
+            initiateUI()
+        }
+    }
+
+    private fun initiateUI(){
         // get content
         val content: Content = UtilHandler.getInstance(requireContext()).getContent(type)[position]
-        content.image?.let { imageView.setImageURI(it)} // instantiate image from uri
+        if (content.image != null){
+            CoroutineScope(Dispatchers.Main).launch {
+                //content.image?.let { imageView.setImageURI(it)}// instantiate image from uri
+                imageView.setImageURI(content.image)
+            }
+        } else{ // image is deleted. Should delete from image view
+            imageView.setImageDrawable(null)
+        }
+
         nameText.text = content.name
         typeText.text = content.type
         producerText.text = content.producer
         linkText.text =  content.links
-        //linkText.movementMethod = LinkMovementMethod.getInstance()
-
-        editButton.setOnClickListener{
-            //TODO:: DO this
-        }
     }
 }

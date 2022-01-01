@@ -40,12 +40,14 @@ class ContentFragment: Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // when returning from ModifyActivity.kt check if there is an extra. If there is, notify
-        if (activity?.intent?.getIntExtra(CONTENT_CREATE, 0) == SAVE_CONTENT){
-            adapter.contents = UtilHandler.getInstance(requireContext()).getContent(type)
-            adapter.notifyDataSetChanged()
-            activity?.intent!!.removeExtra(CONTENT_CREATE)
-        }
+        adapter.contents = UtilHandler.getInstance(requireContext()).getContent(type)
+        adapter.notifyDataSetChanged()
+//        // when returning from ModifyActivity.kt check if there is an extra. If there is, notify
+//        if (activity?.intent?.getIntExtra(CONTENT_CREATE, 0) == SAVE_CONTENT){
+//            adapter.contents = UtilHandler.getInstance(requireContext()).getContent(type)
+//            adapter.notifyDataSetChanged()
+//            activity?.intent!!.removeExtra(CONTENT_CREATE)
+//        }
     }
 
     private fun handleUI(view: View, type:String){

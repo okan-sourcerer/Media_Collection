@@ -18,26 +18,20 @@ import java.util.*
 
 class UtilHandler private constructor(private val context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, VERSION){
 
-    val SQL_CREATE = "create table if not exists $TABLE_NAME ($TABLE_CONTENT_NAME TEXT NOT NULL," +
+    val SQL_CREATE = "create table if not exists $TABLE_NAME ($TABLE_UNIQUE_ID TEXT PRIMARY KEY, $TABLE_CONTENT_NAME TEXT NOT NULL," +
             " $TABLE_PRODUCER TEXT NOT NULL, $TABLE_TYPE TEXT NOT NULL, $TABLE_LINKS TEXT, $TABLE_IMAGE TEXT)"
 
     companion object : SingletonHolder<UtilHandler, Context>(::UtilHandler)
 
     // List of the items in the
 
-    val contents: MutableList<Content> = mutableListOf()
+    private val contents: MutableList<Content> = mutableListOf()
 
     init {
         populateList()
     }
-
-
-    //TODO: Make an edit and create activity. +
-    // Make user to be able to select image from gallery ++
-    // Store user data. ++
-    // OPTIONAL: Add settings menu to modify colors of the app and store them as well. 
-
-
+    // OPTIONAL: Add settings menu to modify colors of the app and store them as well.
+    
     // Name of the categories
         val categories: List<Category> = listOf(
             Category(ALL, R.drawable.all2, "All Content Types"),
@@ -64,8 +58,10 @@ class UtilHandler private constructor(private val context: Context): SQLiteOpenH
             println("image path: $imagePath")
         }
 
+        content.databaseId = UUID.randomUUID().toString()
         val contentValues = ContentValues()
 
+        contentValues.put(TABLE_UNIQUE_ID, content.databaseId)
         contentValues.put(TABLE_CONTENT_NAME, content.name)
         contentValues.put(TABLE_PRODUCER, content.producer)
         contentValues.put(TABLE_TYPE, content.type)
@@ -96,40 +92,70 @@ class UtilHandler private constructor(private val context: Context): SQLiteOpenH
         return directory.absolutePath + File.separator + filename
     }
 
-    fun loadImage(path: String): Bitmap?{
-        var bitmap: Bitmap?
-        try {
-            val file = File(path)
-            bitmap = BitmapFactory.decodeStream(FileInputStream(file))
-        } catch (e: FileNotFoundException){
-            return null // file does not exists.
-        }
-        return bitmap
-    }
-
     // when opening the app the first time, fetch all the content from database
     private fun populateList(){
         val SQL_ALL = "select * from $TABLE_NAME"
         val cursor = readableDatabase.rawQuery(SQL_ALL, null)
 
         if (cursor.moveToFirst()){
+            var databaseId: String
             var name: String
             var producer: String
             var type: String
             var links: String?
             var imagePath: String?
             while (!cursor.isAfterLast){
-                name = cursor.getString(0)
-                producer = cursor.getString(1)
-                type = cursor.getString(2)
-                links = cursor.getStringOrNull(3)
-                imagePath = cursor.getStringOrNull(4)
-                contents.add(Content(if(imagePath != null) Uri.parse(imagePath) else null, name, producer, type, links ?: ""))
+                databaseId = cursor.getString(0)
+                name = cursor.getString(1)
+                producer = cursor.getString(2)
+                type = cursor.getString(3)
+                links = cursor.getStringOrNull(4)
+                imagePath = cursor.getStringOrNull(5)
+                contents.add(Content(databaseId, if(imagePath != null) Uri.parse(imagePath) else null, name, producer, type, links ?: ""))
                 cursor.moveToNext()
             }
         }
 
         cursor.close()
+    }
+
+    fun updateContent(content: Content, imageChanged: Boolean, bitmap: Bitmap?){
+        val values = ContentValues()
+        values.put(TABLE_CONTENT_NAME, content.name)
+        values.put(TABLE_PRODUCER, content.producer)
+        values.put(TABLE_TYPE, content.type)
+        values.put(TABLE_LINKS, content.links)
+        var imagePath: String? = content.image?.path
+        if (imageChanged){ // our image is different. we dont have old image. we have to update
+            if (bitmap != null){ // new image exists
+                val filename: String = imagePath ?: UUID.randomUUID().toString()
+
+                imagePath = saveToStorage(bitmap, filename)
+                println("image path: $imagePath")
+                content.image = Uri.parse(imagePath)
+            } else{ // new image does not exists. need to delete old image and set this to null
+                imagePath = null
+                deleteImage(content.image!!.path!!)
+                content.image = null
+            }
+        }
+        values.put(TABLE_IMAGE, imagePath)
+        writableDatabase.update(TABLE_NAME, values, "ID=?", arrayOf(content.databaseId))
+    }
+
+    fun deleteContent(type: String, position: Int){
+        val content = getContent(type)[position]
+        contents.removeAll {  // remove item from the list
+            content.databaseId == it.databaseId
+        }
+        writableDatabase.delete(TABLE_NAME, "ID=?", arrayOf(content.databaseId))
+    }
+
+    private fun deleteImage(path: String){//delete image that
+        val file = File(path)
+        if (file.exists()){
+            file.delete()
+        }
     }
 
     override fun onCreate(p0: SQLiteDatabase?) {
