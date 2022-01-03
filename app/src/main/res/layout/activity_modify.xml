@@ -39,7 +39,8 @@
             app:layout_constraintRight_toRightOf="@+id/modifyConstraint"
             app:layout_constraintTop_toBottomOf="@id/modifyImage"
             android:layout_marginTop="16dp"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:digits="@string/digits"/>
 
         <EditText
             android:id="@+id/modifyProducer"
@@ -53,7 +54,8 @@
             app:layout_constraintLeft_toLeftOf="@+id/modifyConstraint"
             app:layout_constraintRight_toRightOf="@+id/modifyConstraint"
             app:layout_constraintTop_toBottomOf="@id/modifyName"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:digits="@string/digits"/>
 
         <RadioGroup
             android:id="@+id/modifyTypeGroup"
@@ -96,15 +98,14 @@
             android:id="@+id/modifyLinks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
+            android:hint="@string/links"
+            android:importantForAutofill="no"
+            android:inputType="textUri|textWebEditText|textMultiLine"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/modifyTypeGroup"
-            android:layout_marginTop="15dp"
-            android:importantForAutofill="no"
-            android:hint="@string/links"/>
+            app:layout_constraintTop_toBottomOf="@id/modifyTypeGroup" />
 
         <Button
             android:id="@+id/modifyButtonSave"

@@ -22,9 +22,6 @@ const val UPDATE_CONTENT = 55
 const val TYPE = "TYPE"
 const val POSITION = "POSITION"
 
-const val IMAGE_REQUEST = "REQUEST_IMAGE"
-const val IMAGE_REQUEST_VALUE = 135
-
 const val DATABASE_NAME = "content.db"
 const val VERSION = 1
 

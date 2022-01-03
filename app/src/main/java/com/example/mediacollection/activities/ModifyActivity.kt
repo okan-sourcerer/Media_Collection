@@ -62,7 +62,6 @@ class ModifyActivity : AppCompatActivity() {
                 val position = intent.getIntExtra(POSITION, 0)
                 fromDetail(type, position)
             }
-
         }
 
         buttonSave.setOnClickListener {
@@ -109,10 +108,10 @@ class ModifyActivity : AppCompatActivity() {
 
     // inserts the content from detail fragment. sets content values to the views
     private fun fromDetail(type: String, position: Int){
-        supportActionBar?.title = "Update ${type.toLowerCase(Locale.US).capitalize(Locale.US)}"
 
         // get content
         detailContent = UtilHandler.getInstance(this).getContent(type)[position]
+        supportActionBar?.title = "Update ${detailContent.type.toLowerCase(Locale.US).capitalize(Locale.US)}"
         if (detailContent.image != null){
             CoroutineScope(Dispatchers.Main).launch {
                 //content.image?.let { imageView.setImageURI(it)}// instantiate image from uri

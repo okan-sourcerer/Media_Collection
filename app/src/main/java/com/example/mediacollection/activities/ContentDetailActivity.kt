@@ -1,11 +1,9 @@
 package com.example.mediacollection.activities
 
-import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mediacollection.R
@@ -32,9 +30,6 @@ class ContentDetailActivity : AppCompatActivity() {
         pagerAdapter = DetailFragmentAdapter(supportFragmentManager, lifecycle, type, this)
         pager.adapter = pagerAdapter
         pager.setCurrentItem(position, false)
-        //val fm = supportFragmentManager
-        //fm.beginTransaction().add(R.id.detailContainer, DetailFragment(type, position)).commit()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -43,7 +38,6 @@ class ContentDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // only have 1 item. maybe needed later.
         when(item.itemId){
             R.id.menuDelete -> {
                 val alertDialog = AlertDialog.Builder(this)
@@ -57,10 +51,8 @@ class ContentDetailActivity : AppCompatActivity() {
                 }
                 alertDialog.setNegativeButton("Cancel"){ _, _ ->
                 }
-
                 alertDialog.show()
             }
-
             else -> super.onOptionsItemSelected(item)
         }
         return true

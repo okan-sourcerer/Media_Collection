@@ -11,8 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.mediacollection.R
 import com.example.mediacollection.utils.UtilHandler
 import com.example.mediacollection.adapters.ContentsFragmentAdapter
-import com.example.mediacollection.fragments.ContentFragment
-import com.example.mediacollection.model.ALL
 import com.example.mediacollection.model.CATEGORY
 import com.example.mediacollection.model.CONTENT_CREATE
 import com.example.mediacollection.model.SAVE_CONTENT
@@ -74,7 +72,7 @@ class ContentActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 tab.selectTab(tab.getTabAt(position))
                 supportActionBar?.title = UtilHandler.getInstance(this@ContentActivity)
-                    .categories[position].name.toLowerCase(Locale.US).capitalize(Locale.US)
+                    .categories[position].description
             }
         })
     }
