@@ -18,4 +18,5 @@
     <string name="delete">Delete</string>
     <string name="desc_content_image">Content Image</string>
     <string name="digits">0123456789 qwertyuıopğüasdfghjklşi,zxcvbnmöç.QWERTYUIOPĞÜASDFGHJKLŞİ;ZXCVBNMÖÇ:!\'^+%&amp;/()=?_>£#$½{[]}\|</string>
+    <string name="wipe_all_data">Wipe All Data</string>
 </resources>

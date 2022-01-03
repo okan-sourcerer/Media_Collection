@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.widget.Toast
 import androidx.core.database.getStringOrNull
 import androidx.core.net.toUri
 import com.example.mediacollection.R
@@ -164,6 +165,11 @@ class UtilHandler private constructor(private val context: Context): SQLiteOpenH
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
+    }
+
+    fun wipeAllData() { // delete all contents from the database and from our list
+        writableDatabase.delete(TABLE_NAME, "", arrayOf())
+        contents.removeAll { true }
     }
 
 

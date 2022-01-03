@@ -1,5 +1,6 @@
 package com.example.mediacollection.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -35,7 +36,7 @@ class CategoryActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.setting_menu -> {
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, SettingsActivity::class.java))
             }
 
             else -> super.onOptionsItemSelected(item)

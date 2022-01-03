@@ -90,7 +90,9 @@ class ContentActivity : AppCompatActivity() {
                 val intent = Intent(this, ModifyActivity::class.java)
                 launchActivity.launch(intent)
             }
-            R.id.menu_setting -> Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+            R.id.menu_setting -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
+            }
 
             else -> super.onOptionsItemSelected(item)
         }
