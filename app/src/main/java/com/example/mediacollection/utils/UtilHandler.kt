@@ -3,36 +3,30 @@ package com.example.mediacollection.utils
 import android.content.ContentValues
 import android.content.Context
 import android.content.ContextWrapper
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.widget.Toast
 import androidx.core.database.getStringOrNull
-import androidx.core.net.toUri
 import com.example.mediacollection.R
 import com.example.mediacollection.model.*
-import java.io.*
-import java.lang.Exception
+import java.io.File
+import java.io.FileOutputStream
 import java.util.*
 
 class UtilHandler private constructor(private val context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, VERSION){
 
-    val SQL_CREATE = "create table if not exists $TABLE_NAME ($TABLE_UNIQUE_ID TEXT PRIMARY KEY, $TABLE_CONTENT_NAME TEXT NOT NULL," +
+    private val SQL_CREATE = "create table if not exists $TABLE_NAME ($TABLE_UNIQUE_ID TEXT PRIMARY KEY, $TABLE_CONTENT_NAME TEXT NOT NULL," +
             " $TABLE_PRODUCER TEXT NOT NULL, $TABLE_TYPE TEXT NOT NULL, $TABLE_LINKS TEXT, $TABLE_IMAGE TEXT)"
 
     companion object : SingletonHolder<UtilHandler, Context>(::UtilHandler)
-
-    // List of the items in the
 
     private val contents: MutableList<Content> = mutableListOf()
 
     init {
         populateList()
     }
-    // OPTIONAL: Add settings menu to modify colors of the app and store them as well.
-    
     // Name of the categories
         val categories: List<Category> = listOf(
             Category(ALL, R.drawable.all2, "All Content Types"),
@@ -84,7 +78,7 @@ class UtilHandler private constructor(private val context: Context): SQLiteOpenH
         var outputStream: FileOutputStream? = null
         try {
             outputStream = FileOutputStream(path)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream)
         } catch (e: Exception){
             e.printStackTrace()
         }finally {
@@ -129,6 +123,9 @@ class UtilHandler private constructor(private val context: Context): SQLiteOpenH
         var imagePath: String? = content.image?.path
         if (imageChanged){ // our image is different. we dont have old image. we have to update
             if (bitmap != null){ // new image exists
+                if (imagePath != null){
+                    imagePath = Uri.parse(imagePath).lastPathSegment
+                }
                 val filename: String = imagePath ?: UUID.randomUUID().toString()
 
                 imagePath = saveToStorage(bitmap, filename)
@@ -152,7 +149,7 @@ class UtilHandler private constructor(private val context: Context): SQLiteOpenH
         writableDatabase.delete(TABLE_NAME, "ID=?", arrayOf(content.databaseId))
     }
 
-    private fun deleteImage(path: String){//delete image that
+    private fun deleteImage(path: String){//delete image at that path
         val file = File(path)
         if (file.exists()){
             file.delete()
@@ -168,9 +165,21 @@ class UtilHandler private constructor(private val context: Context): SQLiteOpenH
     }
 
     fun wipeAllData() { // delete all contents from the database and from our list
+        // select all image paths and delete them from our files.
+        val cursor:Cursor = readableDatabase.rawQuery("select * from $TABLE_NAME", null)
+        if(cursor.moveToFirst()){
+            var imagePath: String?
+            while (!cursor.isAfterLast){
+
+                imagePath = cursor.getStringOrNull(5) // table row of our imagepaths
+                if (imagePath != null){
+                    deleteImage(imagePath)
+                }
+            }
+        }
+        cursor.close()
+
         writableDatabase.delete(TABLE_NAME, "", arrayOf())
         contents.removeAll { true }
     }
-
-
 }

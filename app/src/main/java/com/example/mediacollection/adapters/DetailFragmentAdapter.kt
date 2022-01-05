@@ -6,10 +6,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.mediacollection.utils.UtilHandler
 import com.example.mediacollection.fragments.DetailFragment
 import com.example.mediacollection.model.POSITION
 import com.example.mediacollection.model.TYPE
+import com.example.mediacollection.utils.UtilHandler
 
 class DetailFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, val type: String, private val context: Context): FragmentStateAdapter(fragmentManager, lifecycle) {
 

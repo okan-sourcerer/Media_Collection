@@ -6,9 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.mediacollection.utils.UtilHandler
 import com.example.mediacollection.fragments.ContentFragment
 import com.example.mediacollection.model.*
+import com.example.mediacollection.utils.UtilHandler
 
 class ContentsFragmentAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, private val context: Context):
         FragmentStateAdapter(fragmentManager, lifecycle) {

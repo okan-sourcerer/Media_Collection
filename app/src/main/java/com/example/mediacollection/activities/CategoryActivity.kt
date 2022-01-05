@@ -4,13 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mediacollection.R
-import com.example.mediacollection.utils.UtilHandler
 import com.example.mediacollection.adapters.CategoryAdapter
+import com.example.mediacollection.utils.UtilHandler
 
 class CategoryActivity: AppCompatActivity() {
 
@@ -28,7 +27,7 @@ class CategoryActivity: AppCompatActivity() {
         recycler.layoutManager = LinearLayoutManager(this)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.settings_menu, menu)
         return true
     }
@@ -38,10 +37,8 @@ class CategoryActivity: AppCompatActivity() {
             R.id.setting_menu -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
-
             else -> super.onOptionsItemSelected(item)
         }
-
         return true
     }
 }

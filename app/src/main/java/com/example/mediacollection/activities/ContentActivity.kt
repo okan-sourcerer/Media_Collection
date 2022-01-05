@@ -1,19 +1,18 @@
 package com.example.mediacollection.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mediacollection.R
-import com.example.mediacollection.utils.UtilHandler
 import com.example.mediacollection.adapters.ContentsFragmentAdapter
 import com.example.mediacollection.model.CATEGORY
 import com.example.mediacollection.model.CONTENT_CREATE
 import com.example.mediacollection.model.SAVE_CONTENT
+import com.example.mediacollection.utils.UtilHandler
 import com.google.android.material.tabs.TabLayout
 import java.util.*
 
@@ -28,7 +27,6 @@ class ContentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_fragment)
 
         val fm = supportFragmentManager
-
         tab = findViewById(R.id.contentTab)
         tab.setBackgroundColor(resources.getColor(R.color.red, null))
 
@@ -36,11 +34,9 @@ class ContentActivity : AppCompatActivity() {
         for (ca in UtilHandler.getInstance(this).categories){
             tab.addTab(tab.newTab().setIcon(ca.typeImage).setContentDescription(ca.name))
         }
-
         pager = findViewById(R.id.contentPager)
         pagerAdapter = ContentsFragmentAdapter(fm, lifecycle, this)
         pager.adapter = pagerAdapter
-
 
         // check the intent. create fragment according to user clicks
         if (intent != null){
@@ -48,12 +44,6 @@ class ContentActivity : AppCompatActivity() {
             pager.setCurrentItem(position, false)
             tab.selectTab(tab.getTabAt(position))
         }
-        /*
-        else{ // not likely but just in case
-            fm.beginTransaction().add(R.id.fragmentContainer,
-                    ContentFragment()).commit()
-        }
-        */
 
         // handle tab select actions
         tab.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
@@ -61,11 +51,9 @@ class ContentActivity : AppCompatActivity() {
                 // get content list by filtering based on tabs
                 // replace current fragment to new tab fragment
                 pager.setCurrentItem(tab!!.position, true)
-
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
+            override fun onTabReselected(tab: TabLayout.Tab?) {} })
 
         // when page changes, change current tab as well
         pager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
@@ -78,7 +66,7 @@ class ContentActivity : AppCompatActivity() {
     }
 
     // create menu with add and settings option
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.create_menu, menu)
         return true
     }
@@ -93,16 +81,13 @@ class ContentActivity : AppCompatActivity() {
             R.id.menu_setting -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
-
             else -> super.onOptionsItemSelected(item)
         }
-
         return true
     }
 
     // launches modify activity to create a new content. Waits for a result to update adapters.
     private val launchActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-
         if (result.resultCode == SAVE_CONTENT){
             pagerAdapter.notifyDataSetChanged()
             intent.putExtra(CONTENT_CREATE, SAVE_CONTENT) // when we are here, we notify fragment with intent to reload the dataset

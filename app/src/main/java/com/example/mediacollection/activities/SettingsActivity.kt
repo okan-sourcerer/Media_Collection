@@ -1,9 +1,9 @@
 package com.example.mediacollection.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.mediacollection.R
 import com.example.mediacollection.utils.UtilHandler
 

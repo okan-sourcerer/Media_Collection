@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mediacollection.adapters.ContentAdapter
 import com.example.mediacollection.R
-import com.example.mediacollection.model.*
+import com.example.mediacollection.adapters.ContentAdapter
+import com.example.mediacollection.model.ALL
+import com.example.mediacollection.model.Content
+import com.example.mediacollection.model.TYPE
 import com.example.mediacollection.utils.UtilHandler
 
 class ContentFragment: Fragment() {

@@ -9,12 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MediaCollection"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".activities.SettingsActivity"></activity>
+        android:usesCleartextTraffic="true"
+        android:fullBackupContent="">
+        <activity android:name=".activities.SettingsActivity" />
         <activity android:name=".activities.ModifyActivity" />
         <activity android:name=".activities.ContentDetailActivity" />
         <activity android:name=".activities.ContentActivity" />
-        <activity android:name=".activities.CategoryActivity">
+        <activity android:name=".activities.CategoryActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

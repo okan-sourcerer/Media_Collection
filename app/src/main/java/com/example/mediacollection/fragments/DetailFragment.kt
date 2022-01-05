@@ -12,7 +12,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.mediacollection.R
 import com.example.mediacollection.activities.ModifyActivity
-import com.example.mediacollection.model.*
+import com.example.mediacollection.model.Content
+import com.example.mediacollection.model.POSITION
+import com.example.mediacollection.model.TYPE
+import com.example.mediacollection.model.UPDATE_CONTENT
 import com.example.mediacollection.utils.UtilHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

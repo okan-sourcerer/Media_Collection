@@ -1,11 +1,10 @@
 package com.example.mediacollection.activities
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mediacollection.R
 import com.example.mediacollection.adapters.DetailFragmentAdapter
@@ -26,14 +25,15 @@ class ContentDetailActivity : AppCompatActivity() {
         val type = intent.getStringExtra(TYPE)
         val position = intent.getIntExtra(POSITION, 0)
 
-        supportActionBar?.title = "${type!!.toLowerCase(Locale.US).capitalize(Locale.US)} Content"
+        supportActionBar?.title = "${type!!.lowercase(Locale.US)
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.US) else it.toString() }} Content"
         pager = findViewById(R.id.pager)
         pagerAdapter = DetailFragmentAdapter(supportFragmentManager, lifecycle, type, this)
         pager.adapter = pagerAdapter
         pager.setCurrentItem(position, false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.delete_menu, menu)
         return true
     }
